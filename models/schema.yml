@@ -1,0 +1,178 @@
+version: 2
+
+models:
+  - name: stg_campaigns_data
+    description: |
+      Modèle de staging qui nettoie et transforme les données des campagnes publicitaires.
+    columns:
+      - name: id_campagne
+        description: "Identifiant unique de la campagne"
+        tests:
+          - unique
+          - not_null
+      - name: date
+        description: "Date de la campagne"
+        tests:
+          - not_null
+      - name: événement_oui_non
+        description: "Indique si un événement marketing a eu lieu (ex. Soldes)"
+        tests:
+          - not_null
+      - name: événement_type
+        description: "Type de l'événement marketing (ex. Soldes, Nouveauté)"
+      - name: canal
+        description: "Canal publicitaire utilisé (ex. Google Ads, Facebook, Instagram)"
+        tests:
+          - not_null
+      - name: budget
+        description: "Budget alloué pour la campagne"
+        tests:
+          - not_null
+      - name: clean_impressions
+        description: "Nombre d'impressions nettoyées après transformation (remplacer valeurs négatives par 0)"
+        tests:
+          - not_null
+      - name: clean_clics
+        description: "Nombre de clics nettoyés après transformation (remplacer valeurs négatives par 0)"
+        tests:
+          - not_null
+      - name: clean_conversions
+        description: "Nombre de conversions nettoyées après transformation (remplacer valeurs négatives par 0)"
+        tests:
+          - not_null
+      - name: clean_CTR
+        description: "Taux de clics nettoyé après transformation (remplacer valeurs négatives par 0)"
+        tests:
+          - not_null
+      - name: campaign_date
+        description: "Date de la campagne formatée"
+        tests:
+          - not_null
+
+  - name: stg_clients_data
+    description: |
+      Modèle de staging qui nettoie et transforme les données des commandes des clients.
+    columns:
+      - name: id_client
+        description: "Identifiant unique"
+        tests:
+          - unique
+          - not_null
+      - name: id_client
+        description: "Identifiant unique du client ayant passé la commande"
+        tests:
+          - not_null
+      - name: prenom_client
+        description: "Identifiant de l'entrepôt d'où la commande a été expédiée"
+      - name: date_commande
+        description: "Date à laquelle la commande a été passée"
+        tests:
+          - not_null
+      - name: nom_client
+        description: "Statut actuel de la commande (ex. En cours, Expédiée, Livrée)"
+        tests:
+          - not_null
+      - name: âge
+        description: "Identifiant de la promotion appliquée à la commande, le cas échéant"
+      - name: mode_de_paiement
+        description: "Mode de paiement choisi par le client (ex. Carte de crédit, PayPal)"
+        tests:
+          - not_null
+      - name: id_produit_favori
+        description: "Numéro de suivi de la commande pour la livraison"
+      - name: date_livraison_estimée
+        description: "Date estimée de livraison de la commande"
+        tests:
+          - not_null
+
+  - name: stg_commandes_data
+    description: |
+      Modèle de staging qui nettoie et transforme les données des commandes des clients.
+    columns:
+      - name: id_commande
+        description: "Identifiant unique de la commande"
+        tests:
+          - unique
+          - not_null
+      - name: id_client
+        description: "Identifiant unique du client ayant passé la commande"
+        tests:
+          - not_null
+      - name: id_entrepôt_départ
+        description: "Identifiant de l'entrepôt d'où la commande a été expédiée"
+      - name: date_commande
+        description: "Date à laquelle la commande a été passée"
+        tests:
+          - not_null
+      - name: statut_commande
+        description: "Statut actuel de la commande (ex. En cours, Expédiée, Livrée)"
+        tests:
+          - not_null
+      - name: id_promotion_appliquée
+        description: "Identifiant de la promotion appliquée à la commande, le cas échéant"
+      - name: mode_de_paiement
+        description: "Mode de paiement choisi par le client (ex. Carte de crédit, PayPal)"
+        tests:
+          - not_null
+      - name: numéro_tracking
+        description: "Numéro de suivi de la commande pour la livraison"
+      - name: date_livraison_estimée
+        description: "Date estimée de livraison de la commande"
+        tests:
+          - not_null
+
+  - name: stg_satisfaction_data
+    description: |
+      Modèle de staging qui nettoie et transforme les données de satisfaction des clients.
+    columns:
+      - name: id_satisfaction
+        description: "Identifiant unique de l'enquête de satisfaction"
+        tests:
+          - unique
+          - not_null
+      - name: id_commande
+        description: "Identifiant de la commande associée à la satisfaction"
+        tests:
+          - not_null
+      - name: note_client
+        description: "Note attribuée par le client (ex. de 1 à 5)"
+        tests:
+          - not_null
+      - name: commentaire
+        description: "Commentaire du client sur la commande"
+      - name: plainte
+        description: "Indication de la présence d'une plainte du client (ex. Oui/Non)"
+      - name: temps_réponse_support
+        description: "Temps de réponse du support client après une plainte"
+      - name: type_plainte
+        description: "Type de plainte formulée par le client (ex. Produit défectueux, Livraison en retard)"
+      - name: employé_support
+        description: "Nom ou identifiant de l'employé du support ayant pris en charge la plainte"
+
+  
+  - name: stg_posts_data
+    description: |
+      Modèle de staging qui nettoie et transforme les données des posts sur les réseaux sociaux.
+    columns:
+      - name: id_post
+        description: "Identifiant unique du post"
+        tests:
+          - unique
+          - not_null
+      - name: date_post
+        description: "Date à laquelle le post a été publié"
+        tests:
+          - not_null
+      - name: canal_social
+        description: "Plateforme de réseau social où le post a été publié (ex. Facebook, Instagram, Twitter)"
+        tests:
+          - not_null
+      - name: volume_mentions
+        description: "Volume total de mentions ou d'interactions générées par ce post"
+      - name: sentiment_global
+        description: "Sentiment général du post (positif, neutre, négatif)"
+      - name: contenu_post
+        description: "Contenu textuel ou description du post"
+
+      
+      
